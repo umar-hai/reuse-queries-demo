@@ -1,7 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { HeroService } from './hero.service';
-import { injectQuery } from '@tanstack/angular-query-experimental';
-import { lastValueFrom } from 'rxjs';
+import { Component } from '@angular/core';
 import { heroesQuery, queryCreator } from './queries';
 
 @Component({
@@ -19,9 +16,5 @@ import { heroesQuery, queryCreator } from './queries';
     } `,
 })
 export class HeroListComponent {
-  heroService = inject(HeroService);
-
-  heroes$ = this.heroService.heroes$;
-
   query = queryCreator(heroesQuery);
 }
