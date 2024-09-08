@@ -5,11 +5,11 @@ import {
   input,
   numberAttribute,
 } from '@angular/core';
-import { heroQuery, queryCreator } from './queries';
+import { heroQuery, createQueryWrapper } from './queries';
 
 @Component({
   template: `<h2>Hero Detail</h2>
-    @if(creator.query; as query) { @if (query.isPending()) { Loading... } @if
+    @if(wrapper.query; as query) { @if (query.isPending()) { Loading... } @if
     (query.error()) { An error has occurred: {{ query.error()?.message }}
     } @if (query.data(); as data) {
     <div>
@@ -22,7 +22,7 @@ export class HeroDetailsComponent {
 
   injector = inject(Injector);
 
-  creator = queryCreator(
+  wrapper = createQueryWrapper(
     heroQuery,
     () => ({
       heroId: this.heroId(),
@@ -31,6 +31,6 @@ export class HeroDetailsComponent {
   );
 
   ngOnInit() {
-    this.creator.init();
+    this.wrapper.init();
   }
 }

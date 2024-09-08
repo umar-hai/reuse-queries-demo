@@ -27,7 +27,7 @@ export function assertInjector(fn: Function, injector?: Injector): Injector {
   return injector ?? inject(Injector);
 }
 
-export function queryCreator<T, U>(
+export function createQueryWrapper<T, U>(
   query: (params: T) => U,
   params: () => T,
   injector: { injector?: Injector }
