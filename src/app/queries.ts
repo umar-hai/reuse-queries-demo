@@ -10,8 +10,8 @@ import { lastValueFrom } from 'rxjs';
 
 // https://dev.to/this-is-angular/this-is-your-signal-to-try-tanstack-query-angular-35m9
 export const createQuery = <T, U>(
-  query: (params: T) => U,
-  params: T,
+  query: (params?: T) => U,
+  params?: T,
   { injector }: { injector?: Injector } = {}
 ) => {
   injector = assertInjector(createQuery, injector);
@@ -28,7 +28,7 @@ export function assertInjector(fn: Function, injector?: Injector): Injector {
 }
 
 export function queryCreator<T, U>(
-  query: (params: T) => U,
+  query: (params?: T) => U,
   params: () => T,
   injector: { injector?: Injector }
 ) {
