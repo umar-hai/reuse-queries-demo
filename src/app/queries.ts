@@ -31,39 +31,16 @@ export function queryCreator<T, U>(
   query: (params: T) => U,
   params: () => T,
   injector: { injector?: Injector }
-): {
-  init: () => void;
-  query: U | null;
-};
-
-export function queryCreator<T, U>(
-  query: (params?: T) => U,
-  params?: undefined,
-  injector?: undefined
-): U;
-
-export function queryCreator<T, U>(
-  query: (params?: T) => U,
-  params: unknown,
-  injector: unknown
 ) {
-  if (
-    injector &&
-    typeof injector === 'object' &&
-    typeof params === 'function'
-  ) {
-    return {
-      query: null as U | null,
-      init: function () {
-        if (this.query) {
-          return;
-        }
-        this.query = createQuery(query, params(), injector);
-      },
-    };
-  }
-
-  return query();
+  return {
+    query: null as U | null,
+    init: function () {
+      if (this.query) {
+        return;
+      }
+      this.query = createQuery(query, params(), injector);
+    },
+  };
 }
 
 export function heroQuery({ heroId }: { heroId: number }) {
