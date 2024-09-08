@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { heroesQuery, queryCreator } from './queries';
+import { createQuery, heroesQuery, queryCreator } from './queries';
 
 @Component({
   template: `<h2>Hero List</h2>
@@ -16,5 +16,5 @@ import { heroesQuery, queryCreator } from './queries';
     } `,
 })
 export class HeroListComponent {
-  query = queryCreator(heroesQuery);
+  query = createQuery(heroesQuery);
 }

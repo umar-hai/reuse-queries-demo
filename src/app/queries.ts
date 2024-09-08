@@ -10,8 +10,8 @@ import { lastValueFrom } from 'rxjs';
 
 // https://dev.to/this-is-angular/this-is-your-signal-to-try-tanstack-query-angular-35m9
 export const createQuery = <T, U>(
-  query: (params: T) => U,
-  params: T,
+  query: (params?: T) => U,
+  params?: T,
   { injector }: { injector?: Injector } = {}
 ) => {
   injector = assertInjector(createQuery, injector);
@@ -28,42 +28,19 @@ export function assertInjector(fn: Function, injector?: Injector): Injector {
 }
 
 export function queryCreator<T, U>(
-  query: (params: T) => U,
+  query: (params?: T) => U,
   params: () => T,
   injector: { injector?: Injector }
-): {
-  init: () => void;
-  query: U | null;
-};
-
-export function queryCreator<T, U>(
-  query: (params?: T) => U,
-  params?: undefined,
-  injector?: undefined
-): U;
-
-export function queryCreator<T, U>(
-  query: (params?: T) => U,
-  params: unknown,
-  injector: unknown
 ) {
-  if (
-    injector &&
-    typeof injector === 'object' &&
-    typeof params === 'function'
-  ) {
-    return {
-      query: null as U | null,
-      init: function () {
-        if (this.query) {
-          return;
-        }
-        this.query = createQuery(query, params(), injector);
-      },
-    };
-  }
-
-  return query();
+  return {
+    query: null as U | null,
+    init: function () {
+      if (this.query) {
+        return;
+      }
+      this.query = createQuery(query, params(), injector);
+    },
+  };
 }
 
 export function heroQuery({ heroId }: { heroId: number }) {
