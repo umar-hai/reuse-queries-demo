@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import { createQuery, heroesQuery, queryCreator } from './queries';
+
+import { Component, inject } from '@angular/core';
+import { HeroService } from './hero.service';
+import { createQuery, heroesQuery } from './queries';
+
 
 @Component({
   template: `<h2>Hero List</h2>
@@ -16,5 +19,7 @@ import { createQuery, heroesQuery, queryCreator } from './queries';
     } `,
 })
 export class HeroListComponent {
-  query = createQuery(heroesQuery);
+  heroService = inject(HeroService);
+
+  query = createQuery(heroesQuery, null);
 }
